@@ -1,65 +1,86 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useEffect, useState } from "react";
+
+// No API token is used. The public /users endpoint is unauthenticated and
+// allows 60 requests an hour unauthenticated, which is ample for a profile
+// card. A token was previously hardcoded here and committed to the working
+// tree; it has been removed. Revoke it at
+// https://github.com/settings/tokens if it is still active - anything that
+// reaches a public repository must be treated as compromised.
+
+type GithubProfileData = {
+  login: string;
+  name: string;
+  location: string | null;
+  bio: string | null;
+  avatar_url: string;
+};
+
+type Props = {
+  username: string;
+};
+
+function GithubProfileCard({ username }: Props) {
+  const [data, setData] = useState<GithubProfileData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function fetchProfileData() {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+      }
+
+      const result: GithubProfileData = await response.json();
+      setData(result);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchProfileData();
+  }, [username]);
+
+  if (loading) {
+    return <p className="text-center py-4">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center text-red-600 py-4">{error}</p>;
+  }
+
+  if (!data) {
+    return null;
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="shadow-2xl flex flex-row justify-center items-center gap-4 p-4 max-w-2xl w-full mx-auto rounded-lg bg-white">
+      <img
+        className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
+        src={data.avatar_url}
+        alt={`${data.name || data.login} avatar`}
+      />
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">{data.name || data.login}</h1>
+        <h5 className="text-gray-700">{data.location || 'Location not available'}</h5>
+        <p className="text-gray-800">{data.bio || 'Bio not available'}</p>
+      </div>
+    </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <GithubProfileCard username="umutonisophie" />
     </div>
   );
 }
