@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hi, I'm Sophie 👋
 
-## Getting Started
+Software developer working across full-stack web, backend services, and
+security engineering.
 
-First, run the development server:
+I like problems where the interesting part is underneath: making a system
+behave correctly under the conditions you did not plan for, and writing tests
+that actually prove it does.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## What I work on
+
+**Backend & security** — [SentinelForge](https://github.com/umutonisophie/SentinelForge),
+a purple-team security operations platform. FastAPI, PostgreSQL, JWT auth with
+role-based access control, and 68 tests written against the threat model rather
+than against the implementation.
+
+**Full-stack web** — Next.js, React and TypeScript applications, including
+form systems with validation, dashboards, and a restaurant POS backend with
+role-scoped access.
+
+**Data & machine learning** — model training pipelines, e-waste image
+classification, and a retrieval-augmented generation pipeline over scientific
+literature with a local open-source vector database.
+
+## What I care about
+
+**Security that is designed, not bolted on.** Argon2id over fast hashes,
+hash-only API key storage, and login endpoints that take the same time whether
+or not an account exists — because the boring details are usually where the
+real vulnerabilities live.
+
+**Tests that describe behaviour.** A test asserting `multiply(5, 4) === 10`
+does not prove much. Asserting what the code actually does, including the
+failure paths, does.
+
+**Finishing things.** Several repositories here are exercises and coursework
+kept as a record of how I approached the problem, including the parts I got
+wrong the first time. The commit history shows the corrections, not just the
+final state.
+
+## Stack
+
+```
+Languages      Python · JavaScript · TypeScript · SQL · Dart
+Backend        FastAPI · SQLAlchemy · PostgreSQL · Redis
+Frontend       Next.js · React · Tailwind CSS
+Data           pandas · scikit-learn · PyTorch · Chroma
+Security       JWT · Argon2id · RBAC · OWASP-aligned threat modelling
+Tools          Git · Docker · pytest · Jest · Playwright
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Selected repositories
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Repository | What it is |
+|---|---|
+| [SentinelForge](https://github.com/umutonisophie/SentinelForge) | Purple-team security operations platform — FastAPI, RBAC, detection pipeline |
+| [games_teamwork](https://github.com/umutonisophie/games_teamwork) | Next.js game collection, including the Tron duel |
+| [Sohi](https://github.com/umutonisophie/SOHI) | Next.js marketing site with TypeScript |
+| [forms](https://github.com/umutonisophie/forms) | React Hook Form and TanStack Query form system |
+| [pos_secure](https://github.com/umutonisophie/pos_secure) | Restaurant point-of-sale API with scoped access |
+| [Machine_Learning](https://github.com/umutonisophie/Machine_Learning) | Model training pipelines and analysis notebooks |
+| [cybersecurity](https://github.com/umutonisophie/cybersecurity) | Security tooling and exercises |
+| [My-Portfolio](https://github.com/umutonisophie/My-Portfolio) | Personal developer portfolio |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Currently
 
-## Learn More
+Building out the SentinelForge purple-team engine, and working through backend
+and security material.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Reach me on [GitHub](https://github.com/umutonisophie).
